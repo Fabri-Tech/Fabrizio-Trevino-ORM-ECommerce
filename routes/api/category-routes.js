@@ -4,7 +4,7 @@ const { Category, Product } = require('../../models');
 // The `/api/categories` endpoint
 
 // Get all categories
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const categories = await Category.findAll({
       include: [Product],
@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
 });
 
 // Get a specific category by ID
-router.get("/:id", async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const category = await Category.findOne({
       where: {
@@ -25,7 +25,7 @@ router.get("/:id", async (req, res) => {
       include: [Product],
     });
     if (!category) {
-      res.status(404).json({ message: "Category not found" });
+      res.status(404).json({ message: 'Category not found' });
       return;
     }
     res.json(category);
@@ -35,7 +35,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Create a new category
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const category = await Category.create(req.body);
     res.status(201).json(category);
@@ -44,7 +44,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const [affectedRows] = await Category.update(req.body, {
       where: {
@@ -52,16 +52,16 @@ router.put("/:id", async (req, res) => {
       },
     });
     if (affectedRows === 0) {
-      res.status(404).json({ message: "Category not found" });
+      res.status(404).json({ message: 'Category not found' });
       return;
     }
-    res.status(200).json({ message: "Category updated successfully" });
+    res.status(200).json({ message: 'Category updated successfully' });
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const deletedCategory = await Category.destroy({
       where: {
@@ -69,10 +69,10 @@ router.delete("/:id", async (req, res) => {
       },
     });
     if (!deletedCategory) {
-      res.status(404).json({ message: "Category not found" });
+      res.status(404).json({ message: 'Category not found' });
       return;
     }
-    res.status(200).json({ message: "Category deleted successfully" });
+    res.status(200).json({ message: 'Category deleted successfully' });
   } catch (err) {
     res.status(400).json(err);
   }
